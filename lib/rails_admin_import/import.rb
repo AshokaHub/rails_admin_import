@@ -122,6 +122,7 @@ module RailsAdminImport
           end
 
           label_method        = import_config.label
+          label_method_2      = import_config.label_2
           before_import_save  = import_config.before_import_save
 
           # handle nesting in parent object
@@ -166,10 +167,10 @@ module RailsAdminImport
                 results[:success] << "Skipped nested save: #{object.send(label_method)}"
               elsif object.save
                 logger.info "#{Time.now.to_s}: #{verb}d: #{object.send(label_method)}" if RailsAdminImport.config.logging
-                results[:success] << "#{verb}d: #{object.send(label_method)}"
+                results[:success] << "#{verb}d: #{object.send(label_method)} #{object.send(label_method_2)}"
               else
                 logger.info "#{Time.now.to_s}: Failed to #{verb.downcase}: #{object.send(label_method)}. Errors: #{object.errors.full_messages.join(', ')}." if RailsAdminImport.config.logging
-                results[:error] << "Failed to #{verb.downcase}: #{object.send(label_method)}. Errors: #{object.errors.full_messages.join(', ')}."
+                results[:error] << "Failed to #{verb.downcase}: #{object.send(label_method)} #{object.send(label_method_2)}. Errors: #{object.errors.full_messages.join(', ')}."
               end
             else
               logger.info "#{Time.now.to_s}: Errors before save: #{object.send(label_method)}. Errors: #{object.errors.full_messages.join(', ')}." if RailsAdminImport.config.logging

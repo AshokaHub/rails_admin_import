@@ -11,6 +11,10 @@ module RailsAdminImport
         :id
       end
 
+      register_instance_option(:label_2) do
+        nil
+      end
+
       register_instance_option(:included_fields) do
         []
       end
